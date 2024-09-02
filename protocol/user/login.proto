@@ -1,0 +1,33 @@
+syntax = "proto3";
+import "user_common.proto";
+import "user_error.proto";
+package user;
+option go_package = "github.com/weiqiangxu/protocol/user;user";
+
+
+service Login {
+  rpc GetUserInfo(GetUserInfoRequest) returns (GetUserInfoResponse) {} // 获取用户信息
+  rpc DeleteUser(DeleteUserRequest) returns (CommonReply) {} // 删除用户
+}
+
+// GetUserInfoRequest request for user info
+message GetUserInfoRequest {
+  string unique_id = 1;   // 游戏unique_id
+  string name_main = 2;   // 游戏名称
+  string name_sub = 3;    // 游戏英文名称
+}
+
+message GetUserInfoResponse {
+  ERROR_CODE error_code = 1;
+  UserInfo user_info = 2;
+}
+
+message UserInfo {
+  string name = 1;
+  string icon = 2;
+  int32 age = 3;
+}
+
+message DeleteUserRequest {
+  int32 id = 1;
+}

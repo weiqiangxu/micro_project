@@ -1,0 +1,18 @@
+syntax = "proto3";
+package user;
+import "user_enum.proto";
+import "user_error.proto";
+option go_package = "github.com/weiqiangxu/protocol/user;user";
+
+message DataBase {
+  DATA_STATUS status = 1; // 状态
+  int64 created_time = 2; // 创建时间
+  int64 updated_time = 3; // 修改时间
+  int64 creator = 4;   // 创建人员id
+  int64 modifier = 5;    // 修改人员id
+}
+
+message CommonReply {
+  ERROR_CODE error_code = 1;
+  DataBase data_base = 2;
+}

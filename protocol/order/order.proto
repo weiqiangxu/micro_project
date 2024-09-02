@@ -1,0 +1,21 @@
+syntax = "proto3";
+package order;
+option go_package = "github.com/weiqiangxu/protocol/order;order";
+
+
+service Order {
+  rpc GetOrder(GetOrderRequest) returns (GetOrderResponse) {} // 获取订单
+}
+
+// GetOrderRequest request for user info
+message GetOrderRequest {
+  string order_id = 1; // 订单ID
+}
+
+message GetOrderResponse {
+  OrderInfo order_info = 2;
+}
+
+message OrderInfo {
+  string name = 1;
+}

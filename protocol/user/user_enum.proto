@@ -1,0 +1,24 @@
+syntax = "proto3";
+package user;
+option go_package = "github.com/weiqiangxu/protocol/user;user";
+
+enum DATA_STATUS {
+  UNIVERSAL_DATA= 0; // 默认值
+  HIDE = 1; // 隐藏
+  ONLINE = 2; // 线上
+  DRAFT = 3; // 草稿
+  EXAMINE = 4; // 审核
+  DELETE = 99; // 删除
+}
+
+enum OPERATION_STATUS {
+  UNIVERSAL_OPERATION = 0; // 默认
+  BEING = 1; // 运营中
+  DISMISS = 2; // 已解散
+}
+
+enum TRANSFERS_STATUS {
+  UNIVERSAL_TRANSFERS = 0; // 默认值
+  UNCONFIRMED = 1; // 网传
+  VERIFIED = 2; // 正式
+}

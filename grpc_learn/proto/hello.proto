@@ -1,0 +1,28 @@
+
+syntax = "proto3";
+
+// 决定生成文件所在的路径
+option go_package = "source/hello";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.hello";
+option java_outer_classname = "helloProto";
+
+package hello;
+
+// The greeting service definition.
+// 服务定义-简单RPC
+service Greeter {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply) {}
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings
+// 包含问候语的响应消息
+message HelloReply {
+  string message = 1;
+}

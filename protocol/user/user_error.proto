@@ -1,0 +1,10 @@
+syntax = "proto3";
+package user;
+option go_package = "github.com/weiqiangxu/protocol/user;user";
+
+
+enum ERROR_CODE {
+  SuccessCode = 0; // 成功状态吗
+  UndefinedErrorCode = 1; // 未定义错误
+  AuthFailCode = 2;// 权限验证错误
+}
