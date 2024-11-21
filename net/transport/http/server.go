@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/weiqiangxu/net/transport"
-	"github.com/weiqiangxu/user/config"
+	"github.com/weiqiangxu/micro_project/net/transport"
+	"github.com/weiqiangxu/micro_project/user/config"
 
-	"github.com/weiqiangxu/common-config/logger"
+	"github.com/weiqiangxu/micro_project/common-config/logger"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/collectors"

@@ -9,7 +9,7 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/segmentio/ksuid"
-	"github.com/weiqiangxu/common-config/logger"
+	"github.com/weiqiangxu/micro_project/common-config/logger"
 	"golang.org/x/sync/errgroup"
 )
 

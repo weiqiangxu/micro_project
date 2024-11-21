@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/weiqiangxu/common-config/format"
-	"github.com/weiqiangxu/common-config/logger"
-	"github.com/weiqiangxu/net"
-	"github.com/weiqiangxu/net/transport"
-	"github.com/weiqiangxu/net/transport/http"
-	"github.com/weiqiangxu/user/application"
-	"github.com/weiqiangxu/user/config"
-	"github.com/weiqiangxu/user/global/router"
+	"github.com/weiqiangxu/micro_project/common-config/format"
+	"github.com/weiqiangxu/micro_project/common-config/logger"
+	"github.com/weiqiangxu/micro_project/net"
+	"github.com/weiqiangxu/micro_project/net/transport"
+	"github.com/weiqiangxu/micro_project/net/transport/http"
+	"github.com/weiqiangxu/micro_project/user/application"
+	"github.com/weiqiangxu/micro_project/user/config"
+	"github.com/weiqiangxu/micro_project/user/global/router"
 )
 
 func main() {

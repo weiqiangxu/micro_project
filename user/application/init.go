@@ -6,20 +6,18 @@ import (
 	"io"
 	"time"
 
-	"github.com/opentracing/opentracing-go"
-	"github.com/uber/jaeger-client-go"
 	jaegerConfig "github.com/uber/jaeger-client-go/config"
 
-	redisApi "github.com/weiqiangxu/common-config/cache"
-	"github.com/weiqiangxu/common-config/logger"
-	"github.com/weiqiangxu/net/transport"
-	"github.com/weiqiangxu/net/transport/grpc"
-	pbUser "github.com/weiqiangxu/protocol/user"
-	adminGrpc "github.com/weiqiangxu/user/application/admin_service/grpc"
-	"github.com/weiqiangxu/user/application/event"
-	frontHttp "github.com/weiqiangxu/user/application/front_service/http"
-	"github.com/weiqiangxu/user/config"
-	"github.com/weiqiangxu/user/domain/user"
+	redisApi "github.com/weiqiangxu/micro_project/common-config/cache"
+	"github.com/weiqiangxu/micro_project/common-config/logger"
+	"github.com/weiqiangxu/micro_project/net/transport"
+	"github.com/weiqiangxu/micro_project/net/transport/grpc"
+	pbUser "github.com/weiqiangxu/micro_project/protocol/user"
+	adminGrpc "github.com/weiqiangxu/micro_project/user/application/admin_service/grpc"
+	"github.com/weiqiangxu/micro_project/user/application/event"
+	frontHttp "github.com/weiqiangxu/micro_project/user/application/front_service/http"
+	"github.com/weiqiangxu/micro_project/user/config"
+	"github.com/weiqiangxu/micro_project/user/domain/user"
 )
 
 var App app

@@ -2,9 +2,9 @@ package user
 
 import (
 	"github.com/gogf/gf/util/gconv"
-	redisApi "github.com/weiqiangxu/common-config/cache"
-	"github.com/weiqiangxu/user/domain/user/entity"
-	"github.com/weiqiangxu/user/domain/user/repository"
+	redisApi "github.com/weiqiangxu/micro_project/common-config/cache"
+	"github.com/weiqiangxu/micro_project/user/domain/user/entity"
+	"github.com/weiqiangxu/micro_project/user/domain/user/repository"
 )
 
 type DomainInterface interface {

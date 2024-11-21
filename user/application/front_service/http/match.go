@@ -3,25 +3,23 @@ package http
 import (
 	"context"
 	"fmt"
-	"github.com/weiqiangxu/user/global/enum"
+	"github.com/weiqiangxu/micro_project/user/global/enum"
 	"net/http"
 	"strings"
 	"time"
 
 	"github.com/go-playground/locales/en"
 	ut "github.com/go-playground/universal-translator"
-	"github.com/go-playground/validator/v10"
-	"github.com/opentracing/opentracing-go"
 	"github.com/pkg/errors"
-	"github.com/weiqiangxu/common-config/logger"
+	"github.com/weiqiangxu/micro_project/common-config/logger"
 
-	"github.com/weiqiangxu/user/application/front_service/dtos"
+	"github.com/weiqiangxu/micro_project/user/application/front_service/dtos"
 
-	"github.com/weiqiangxu/protocol/order"
-	pbUser "github.com/weiqiangxu/protocol/user"
+	"github.com/weiqiangxu/micro_project/protocol/order"
+	pbUser "github.com/weiqiangxu/micro_project/protocol/user"
 
 	"github.com/gin-gonic/gin"
-	"github.com/weiqiangxu/user/domain/user"
+	"github.com/weiqiangxu/micro_project/user/domain/user"
 )
 
 type UserAppHttpOption func(service *UserAppHttpService)

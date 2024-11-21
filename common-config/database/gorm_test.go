@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/weiqiangxu/common-config/format"
+	"github.com/weiqiangxu/micro_project/common-config/format"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )

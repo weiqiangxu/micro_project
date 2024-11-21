@@ -1,8 +1,8 @@
 package common
 
 import (
-	redisApi "github.com/weiqiangxu/common-config/cache"
-	"github.com/weiqiangxu/common-config/logger"
+	redisApi "github.com/weiqiangxu/micro_project/common-config/cache"
+	"github.com/weiqiangxu/micro_project/common-config/logger"
 
 	"github.com/gin-gonic/gin"
 )

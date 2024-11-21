@@ -4,7 +4,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/weiqiangxu/common-config/logger"
+	"github.com/weiqiangxu/micro_project/common-config/logger"
 
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 )

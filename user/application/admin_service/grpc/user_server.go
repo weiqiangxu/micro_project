@@ -5,11 +5,11 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/weiqiangxu/common-config/logger"
+	"github.com/weiqiangxu/micro_project/common-config/logger"
 
 	"github.com/pkg/errors"
-	redisApi "github.com/weiqiangxu/common-config/cache"
-	"github.com/weiqiangxu/protocol/user"
+	redisApi "github.com/weiqiangxu/micro_project/common-config/cache"
+	"github.com/weiqiangxu/micro_project/protocol/user"
 )
 
 type UserAppGrpcOption func(service *UserAppGrpcService)

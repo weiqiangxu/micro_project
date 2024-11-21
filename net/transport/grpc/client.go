@@ -5,9 +5,8 @@ import (
 	"fmt"
 
 	grpcPrometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
-	"github.com/opentracing/opentracing-go"
 	prom "github.com/prometheus/client_golang/prometheus"
-	"github.com/weiqiangxu/user/config"
+	"github.com/weiqiangxu/micro_project/user/config"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/balancer/roundrobin"

@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/weiqiangxu/common-config/logger"
+	"github.com/weiqiangxu/micro_project/common-config/logger"
 
 	"github.com/gin-gonic/gin"
 )

@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	grpcRecovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
-	"github.com/weiqiangxu/common-config/logger"
+	"github.com/weiqiangxu/micro_project/common-config/logger"
 	"google.golang.org/grpc/metadata"
 )
 

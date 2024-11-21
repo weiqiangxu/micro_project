@@ -7,11 +7,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/weiqiangxu/net/transport"
+	"github.com/weiqiangxu/micro_project/net/transport"
 
-	"github.com/weiqiangxu/net/tool"
+	"github.com/weiqiangxu/micro_project/net/tool"
 
-	"github.com/weiqiangxu/common-config/logger"
+	"github.com/weiqiangxu/micro_project/common-config/logger"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"
 	"google.golang.org/grpc/health/grpc_health_v1"

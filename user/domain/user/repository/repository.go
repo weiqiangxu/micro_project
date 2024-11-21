@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	"github.com/weiqiangxu/user/domain/user/entity"
+	"github.com/weiqiangxu/micro_project/user/domain/user/entity"
 
 	"go.mongodb.org/mongo-driver/mongo"
 )

@@ -2,8 +2,8 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/weiqiangxu/user/application"
-	"github.com/weiqiangxu/user/global/enum"
+	"github.com/weiqiangxu/micro_project/user/application"
+	"github.com/weiqiangxu/micro_project/user/global/enum"
 )
 
 func RequestTracing() gin.HandlerFunc {

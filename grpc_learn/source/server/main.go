@@ -7,7 +7,7 @@ import (
 	"log"
 	"net"
 
-	pb "grpc_learn/source/hello"
+	pb "github.com/weiqiangxu/micro_project/grpc_learn/source/hello"
 
 	"google.golang.org/grpc"
 )

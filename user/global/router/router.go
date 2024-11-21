@@ -3,10 +3,10 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/weiqiangxu/common-config/metrics"
-	"github.com/weiqiangxu/user/application"
-	"github.com/weiqiangxu/user/config"
-	"github.com/weiqiangxu/user/global/pprof_tool"
+	"github.com/weiqiangxu/micro_project/common-config/metrics"
+	"github.com/weiqiangxu/micro_project/user/application"
+	"github.com/weiqiangxu/micro_project/user/config"
+	"github.com/weiqiangxu/micro_project/user/global/pprof_tool"
 )
 
 func Init(r *gin.Engine) {

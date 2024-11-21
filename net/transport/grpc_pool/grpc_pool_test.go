@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	netGrpc "github.com/weiqiangxu/net/transport/grpc"
+	netGrpc "github.com/weiqiangxu/micro_project/net/transport/grpc"
 	"google.golang.org/grpc"
 )
 

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/weiqiangxu/common-config/format"
+	"github.com/weiqiangxu/micro_project/common-config/format"
 
 	gDriver "gorm.io/driver/mysql"
 	"gorm.io/gorm"

@@ -4,9 +4,7 @@ import (
 	"errors"
 	"net/http"
 
-	common_errors "github.com/weiqiangxu/common-config/error_code"
-
-	"github.com/go-playground/validator/v10"
+	common_errors "github.com/weiqiangxu/micro_project/common-config/error_code"
 
 	"github.com/gin-gonic/gin"
 )

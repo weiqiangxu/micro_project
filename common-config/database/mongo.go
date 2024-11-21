@@ -3,7 +3,7 @@ package database
 import (
 	"context"
 
-	"github.com/weiqiangxu/common-config/format"
+	"github.com/weiqiangxu/micro_project/common-config/format"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"

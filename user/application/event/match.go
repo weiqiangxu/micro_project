@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/weiqiangxu/common-config/logger"
-	"github.com/weiqiangxu/net/transport"
+	"github.com/weiqiangxu/micro_project/common-config/logger"
+	"github.com/weiqiangxu/micro_project/net/transport"
 )
 
 var _ transport.Server = (*MatchEvent)(nil)

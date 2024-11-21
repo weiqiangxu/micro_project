@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/weiqiangxu/common-config/format"
+	"github.com/weiqiangxu/micro_project/common-config/format"
 
 	"github.com/gin-gonic/gin"
 	"github.com/prometheus/client_golang/prometheus"
