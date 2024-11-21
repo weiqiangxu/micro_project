@@ -1,8 +1,8 @@
-module github.com/weiqiangxu/user
+module github.com/weiqiangxu/micro_project/user
 
 go 1.19
 
-replace github.com/weiqiangxu/net => /Users/xuweiqiang/Documents/code/net
+// replace github.com/weiqiangxu/net => /Users/xuweiqiang/Documents/code/net
 
 require (
 	github.com/gin-gonic/gin v1.8.1
@@ -15,9 +15,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.14.0
 	github.com/uber/jaeger-client-go v2.30.0+incompatible
-	github.com/weiqiangxu/common-config v0.0.0-20221126045525-c1f355112184
-	github.com/weiqiangxu/net v0.0.0-20221207070347-1d4d123a8be0
-	github.com/weiqiangxu/protocol v0.0.0-20221126155733-7657bc0121fc
+	github.com/weiqiangxu/micro_project v0.0.0-20221126045525-c1f355112184
 	go.mongodb.org/mongo-driver v1.11.0
 )
 

@@ -1,4 +1,4 @@
-module github.com/weiqiangxu/protocol
+module github.com/weiqiangxu/micro_project/protocol
 
 go 1.17
 

@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/weiqiangxu/common-config/format"
+	"github.com/weiqiangxu/micro_project/common-config/format"
 )
 
 var Conf Config
