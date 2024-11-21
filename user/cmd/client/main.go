@@ -15,7 +15,7 @@ func main() {
 	// inject config from nacos
 	config.Conf = config.Config{
 		Application:     config.AppInfo{Name: "admin", Version: "v0.0.2"},
-		HttpConfig:      format.HttpConfig{ListenHTTP: ":8989", Prometheus: true},
+		HttpConfig:      format.HttpConfig{ListenHTTP: ":8181", Prometheus: true},
 		UserGrpcConfig:  format.GrpcConfig{Addr: ":9191"},
 		OrderGrpcConfig: format.GrpcConfig{},
 		LogConfig:       format.LogConfig{},

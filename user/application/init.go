@@ -59,17 +59,26 @@ func Init() {
 			logger.Fatal(err)
 		}
 		// 创建一个定时器，设置时间间隔为5秒（可根据需求修改）
-		ticker := time.NewTicker(1 * time.Second)
+		ticker := time.NewTicker(60 * time.Second)
 		// 使用for循环来持续接收定时器的触发事件
-		for range ticker.C {
-			logger.Info("当前GRPC连接状态:", userGrpcConn.GetState().String())
-		}
+		go func() {
+			for range ticker.C {
+				logger.Info("当前GRPC连接状态:", userGrpcConn.GetState().String())
+			}
+		}()
 
 		// TODO 获取userGrpcConn的方式更改为GRPC连接池获取
 		// userGrpcConn := grpcPool.Get()
 		// TODO grpc连接池获取连接的时候怎么判断这个连接目前是空闲的呢,请求发起到请求完成有事件吗
 		// (拦截器的defer是可以接收到完成)
 		// TODO grpc连接池获取连接的时候这个连接的顺序是怎么保证的呢
+
+		// TODO 连接池代码和接口调用代码的耦合比较严重,因为连接没有状态标识是否空闲
+		// TODO 可以把 Dial时候传入pool的key 在请求完成的事件将 key通知到 pool从而释放连接
+		// 请求完成的事件放在拦截器的 defer 事件之中
+		// currentConn := pool.GetGrpcConn() // 计数器+1
+		// pbUser.NewLoginClient(currentConn.GetConn()).ListUser() // RPC调用获取数据
+		// defer currentConn.Release() // 释放回GRPC连接池
 
 		loginClient = pbUser.NewLoginClient(userGrpcConn)
 	}

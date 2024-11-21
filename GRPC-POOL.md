@@ -1,5 +1,7 @@
 # grpc pool
 
+> 代码路径: micro_project\net\transport\grpc_pool
+
 > GRPC连接池
 
 ### 一、设计逻辑
@@ -83,9 +85,18 @@ for range ticker.C {
 
 发起RPC调用的时候运行`grpcPool.Get()`时候，从连接池之中获取`空闲`的连接，如果没有的话，那么可能增加连接。怎么判断连接是`空闲`的呢？
 
+> 验证没法通过这状态`ClientConn.ClientConnGetState()`判断.
+
 ##### 3.缩容
 
 > 什么时候连接池的连接会被释放
+
+```go
+xxx := pool.Get()
+xxx.list()
+// 手动释放连接(计数器的方式判断连接是否正在使用)
+defer xxx.Release()
+```
 
 ```go
 // 调用连接释放函数
@@ -108,7 +119,7 @@ type State int
 func (s State) String() string {
 	switch s {
 	case Idle:
-		return "IDLE" // 空闲
+		return "IDLE" // 空闲-验证没有这个状态，要么连接失败要么就是READY
 	case Connecting:
 		return "CONNECTING" // 连接正在建立过程中
 	case Ready:
@@ -123,6 +134,11 @@ func (s State) String() string {
 	}
 }
 ```
+
+> 验证没法通过这状态判断.
+> 验证没法通过这状态判断.
+> 验证没法通过这状态判断.
+
 
 > 通过互斥锁保证并发安全，使用channel存储连接对象保证。
 

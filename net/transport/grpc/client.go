@@ -55,6 +55,7 @@ func Dial(ctx context.Context, opts ...ClientOption) (*grpc.ClientConn, error) {
 		list := []grpc.DialOption{
 			// 注入一元RPC调用拦截器
 			grpc.WithUnaryInterceptor(ClientInterceptor(options.tracer)),
+			grpc.WithUnaryInterceptor(ReleaseInterceptor()),
 		}
 		grpcOpts = append(grpcOpts, list...)
 	}
@@ -94,6 +95,19 @@ func ClientInterceptor(tracer opentracing.Tracer) grpc.UnaryClientInterceptor {
 			// 调用完成以后标识此Span结束
 			defer child.Finish()
 		}
+		return invoker(ctx, method, req, reply, cc, opts...)
+	}
+}
+
+// ReleaseInterceptor RPC调用完成释放连接
+func ReleaseInterceptor() grpc.UnaryClientInterceptor {
+	return func(ctx context.Context, method string, req, reply interface{}, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
+		// 实现一个一元调用拦截器
+		fmt.Println("GRPC请求开始...")
+		defer func() {
+			fmt.Println("GRPC的请求完成通知gRPC连接池释放连接...")
+		}()
+		// invoker真正的发起RPC调用,并且调用完成之后进入defer
 		return invoker(ctx, method, req, reply, cc, opts...)
 	}
 }
