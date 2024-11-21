@@ -117,6 +117,7 @@ func (c *channelPool) Get() (*grpc.ClientConn, error) {
 			}
 			// whether it is invalid. If it is invalid, discard it
 			// If the user does not set the ping method, do not check
+			// 如果设置了ping方法在调用之前检查一下这个连接
 			if c.ping != nil {
 				if err := c.Ping(wrapConn.c); err != nil {
 					_ = c.Close(wrapConn.c)

@@ -34,7 +34,7 @@ func main() {
 	httpServer := http.NewServer(http.WithAddress(config.Conf.HttpConfig.ListenHTTP),
 		http.WithPrometheus(config.Conf.HttpConfig.Prometheus),
 		http.WithProfile(config.Conf.HttpConfig.Profile))
-	// mount routing and middleware to http server
+	// 挂载路由到服务中
 	router.Init(httpServer.Server())
 	router.RegisterPrometheus()
 	// register http server && rpc server to gin engine and run

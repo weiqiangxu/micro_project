@@ -2,7 +2,6 @@ package grpc
 
 import (
 	"context"
-	"math/rand"
 	"time"
 
 	"github.com/weiqiangxu/micro_project/common-config/logger"
@@ -37,9 +36,9 @@ func (srv *UserAppGrpcService) GetUserInfo(ctx context.Context, request *user.Ge
 	if request == nil {
 		return nil, errors.New("request is nil")
 	}
-	delay := rand.Intn(10)
-	time.Sleep(time.Second * time.Duration(delay))
-	logger.Infof("sleep %d second", delay)
+	// 延迟20秒钟调试GRPC连接此时的状态变化
+	time.Sleep(time.Second * 5)
+	logger.Infof("sleep %d second", 5)
 	return &user.GetUserInfoResponse{
 		ErrorCode: user.ERROR_CODE_SuccessCode,
 		UserInfo: &user.UserInfo{

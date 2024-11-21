@@ -18,8 +18,11 @@ func TestGenerateJwtToken(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:    "jwt create",
-			args:    args{},
+			name: "jwt create",
+			args: args{
+				userId:     0,
+				jwtSignKey: "my_pwd",
+			},
 			want:    "",
 			wantErr: false,
 		},

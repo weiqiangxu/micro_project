@@ -3,6 +3,7 @@ package http
 import (
 	"context"
 	"fmt"
+	"github.com/opentracing/opentracing-go"
 	"github.com/weiqiangxu/micro_project/user/global/enum"
 	"net/http"
 	"strings"
@@ -10,6 +11,7 @@ import (
 
 	"github.com/go-playground/locales/en"
 	ut "github.com/go-playground/universal-translator"
+	"github.com/go-playground/validator/v10"
 	"github.com/pkg/errors"
 	"github.com/weiqiangxu/micro_project/common-config/logger"
 
@@ -90,6 +92,7 @@ func (m *UserAppHttpService) GetUserList(c *gin.Context) {
 func (m *UserAppHttpService) GetUserInfo(c *gin.Context) {
 	v, _ := c.Get(enum.TraceSpanName)
 	ctx := context.WithValue(context.Background(), "span", v)
+	// RPC调用获取数据
 	response, err := m.userRpcClient.GetUserInfo(ctx, &pbUser.GetUserInfoRequest{
 		UniqueId: "1",
 		NameMain: "2",

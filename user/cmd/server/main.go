@@ -15,14 +15,15 @@ import (
 func main() {
 	// 配置依赖注入
 	config.Conf = config.Config{
-		Application:    config.AppInfo{Name: "server", Version: "v0.0.1"},
-		UserGrpcConfig: format.GrpcConfig{Addr: ":9191"},
+		Application:          config.AppInfo{Name: "server", Version: "v0.0.1"},
+		UserGrpcServerConfig: format.GrpcConfig{Addr: ":9191"},
 	}
 	// mongodb && redis 等服务依赖
 	application.Init()
 	router.RegisterPrometheus()
-	// 注册grpc服务
-	grpcServer := grpc.NewServer(grpc.Address(config.Conf.UserGrpcConfig.Addr))
+	// 注入GRPC服务启动时候的监听地址
+	grpcServer := grpc.NewServer(grpc.Address(config.Conf.UserGrpcServerConfig.Addr))
+	// 将获取用户信息的接口实现注入GRPC服务
 	user.RegisterLoginServer(grpcServer, application.App.AdminService.UserGrpcService)
 	serverList := []transport.Server{grpcServer}
 	if len(application.App.Event) > 0 {

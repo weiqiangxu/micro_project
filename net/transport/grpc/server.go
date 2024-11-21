@@ -2,6 +2,7 @@ package grpc
 
 import (
 	"context"
+	"google.golang.org/grpc/keepalive"
 	"net"
 	"net/url"
 	"sync"
@@ -56,6 +57,17 @@ func NewServer(opts ...ServerOption) *Server {
 		grpc.ChainUnaryInterceptor(server.unaryInterceptor...),
 		grpc.ChainStreamInterceptor(server.streamInterceptor...),
 	}
+	keepAliveOpt := grpc.KeepaliveParams(keepalive.ServerParameters{
+		// 连接最大空闲时间，超过这个时间如果没有数据传输，连接可能会被关闭；
+		MaxConnectionIdle: 15 * time.Second,
+		// 连接的最大存活时间，超过这个时间连接也会被关闭(默认值是无限（infinity）)
+		MaxConnectionAge: 30 * time.Minute,
+		// 服务端每隔10秒钟发送 Keep-Alive 消息(默认值是 2 小时)
+		Time: 10 * time.Second,
+		// 超过3秒钟没收到 keep-alive 的消息认为此连接无效(默认值是 20 秒)
+		Timeout: 3 * time.Second,
+	})
+	grpcOpts = append(grpcOpts, keepAliveOpt)
 	server.grpcOpts = append(server.grpcOpts, grpcOpts...)
 	server.Server = grpc.NewServer(server.grpcOpts...)
 	server.health.SetServingStatus(HealthcheckService, grpc_health_v1.HealthCheckResponse_SERVING)
