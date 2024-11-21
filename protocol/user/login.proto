@@ -2,7 +2,7 @@ syntax = "proto3";
 import "user_common.proto";
 import "user_error.proto";
 package user;
-option go_package = "github.com/weiqiangxu/protocol/user;user";
+option go_package = "github.com/weiqiangxu/micro_project/protocol/user;user";
 
 
 service Login {

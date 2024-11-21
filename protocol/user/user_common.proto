@@ -2,7 +2,7 @@ syntax = "proto3";
 package user;
 import "user_enum.proto";
 import "user_error.proto";
-option go_package = "github.com/weiqiangxu/protocol/user;user";
+option go_package = "github.com/weiqiangxu/micro_project/protocol/user;user";
 
 message DataBase {
   DATA_STATUS status = 1; // 状态
