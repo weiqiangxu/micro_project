@@ -42,7 +42,11 @@ type adminService struct {
 }
 
 func Init() {
-	tracer, _ := InitJaeger(fmt.Sprintf("%s:%s", config.Conf.Application.Name, config.Conf.Application.Version))
+
+	// 创建一个 Jaeger 追踪器（Tracer）
+	tracer, _ := InitJaeger(fmt.Sprintf("%s:%s",
+		config.Conf.Application.Name,
+		config.Conf.Application.Version))
 
 	var loginClient pbUser.LoginClient
 	if !reflect.DeepEqual(config.Conf.UserGrpcConfig, format.GrpcConfig{}) {
@@ -109,20 +113,37 @@ func Init() {
 	App.Tracer = tracer
 }
 
-// InitJaeger returns an instance of Jaeger Tracer that samples 100% of traces and logs all spans to stdout.
+// InitJaeger 初始化一个opentracing.Tracer链路追踪实例
+// 100%的请求都会记录跨度
 // 初始化jaeger的指标
 func InitJaeger(service string) (opentracing.Tracer, io.Closer) {
 	cfg := &jaegerConfig.Configuration{
-		ServiceName: service,
+		ServiceName: service, // 指定了要被追踪的服务的名称
 		Sampler: &jaegerConfig.SamplerConfig{
-			Type:  "const",
+			// 采用恒定采样策略
+			// 意味着对于每一个请求或操作，都会按照固定的方式决定是否进行追踪
+			Type: "const",
+			// 与 Type 字段配合，决定具体的采样行为
 			Param: 1,
 		},
 		Reporter: &jaegerConfig.ReporterConfig{
-			LogSpans:          true,
+			// 设置为 true，表示要记录追踪的跨度（Span）信息到日志中
+			LogSpans: true,
+			// 指定了 Jaeger 收集器（Collector）的端点地址
+			// 追踪数据最终需要发送到 Jaeger 的收集器进行处理和存储
+			// 通过设置这个字段，告诉程序将追踪数据发送到哪里
+			// 指定客户端（应用程序）将追踪数据发送到的目标地址，即 Jaeger 收集器（Collector）的端点
+			// TODO 客户端主动push
+			//  Jaeger 的这种配置下，是客户端主动将数据推送给收集器，
+			// 	这种方式使得客户端对数据的发送有更多的控制权，能够根据自身的情况（如数据量、网络状况等）来决定何时发送数据
+			//	 而不是等待服务端来请求
+			// TODO 需要做优化更改为kafka - 异步PUSH
 			CollectorEndpoint: config.Conf.JaegerConfig.Addr,
 		},
 	}
+	// 基于前面初始化好的配置结构体 cfg
+	// 使用 NewTracer 方法来创建一个 Jaeger 追踪器（Tracer）以及一个用于关闭追踪器相关资源的函数 closer
+	// jaegerConfig.Logger(jaeger.StdLogger) 是在为追踪器设置日志记录器
 	tracer, closer, err := cfg.NewTracer(jaegerConfig.Logger(jaeger.StdLogger))
 	if err != nil {
 		logger.Fatal(err)

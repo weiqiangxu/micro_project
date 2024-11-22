@@ -2,9 +2,8 @@ package grpc
 
 import (
 	"context"
-	"time"
-
 	"github.com/weiqiangxu/micro_project/common-config/logger"
+	"time"
 
 	"github.com/pkg/errors"
 	redisApi "github.com/weiqiangxu/micro_project/common-config/cache"
@@ -37,7 +36,7 @@ func (srv *UserAppGrpcService) GetUserInfo(ctx context.Context, request *user.Ge
 		return nil, errors.New("request is nil")
 	}
 	// 延迟20秒钟调试GRPC连接此时的状态变化
-	time.Sleep(time.Second * 10)
+	time.Sleep(time.Second * 2)
 	logger.Infof("sleep %d second", 10)
 	return &user.GetUserInfoResponse{
 		ErrorCode: user.ERROR_CODE_SuccessCode,

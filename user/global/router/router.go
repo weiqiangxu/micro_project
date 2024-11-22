@@ -10,10 +10,13 @@ import (
 )
 
 func Init(r *gin.Engine) {
-	monitorHandle := metrics.RequestMonitor()
+	monitorHandle := metrics.PrometheusInterceptor()
+	// 注入Prometheus的指标采集的拦截器
 	r.Use(monitorHandle)
-	r.Use(RequestTracing())
-	pprof_tool.Register(r) // register pprof to gin
+	// 注入OpenTracing的指标采集用的拦截器
+	r.Use(RequestTracingInterceptor())
+	// 注册pprof性能分析工具
+	pprof_tool.Register(r)
 	game := r.Group("/user")
 	{
 		game.GET("/list", application.App.FrontService.UserHttp.GetUserList)
@@ -22,11 +25,13 @@ func Init(r *gin.Engine) {
 	}
 }
 
-// RegisterPrometheus register prometheus
+// RegisterPrometheus 指标收集器注册到Prometheus如果不注册也不会将指标输出到指标采集接口
 func RegisterPrometheus() {
 	if !config.Conf.HttpConfig.Prometheus {
 		return
 	}
 	prometheus.MustRegister(metrics.RequestLatencyHistogram)
 	prometheus.MustRegister(metrics.RequestGauge)
+	prometheus.MustRegister(metrics.Counter)
+	prometheus.MustRegister(metrics.Summary)
 }

@@ -90,8 +90,10 @@ func (m *UserAppHttpService) GetUserList(c *gin.Context) {
 
 // GetUserInfo get user info
 func (m *UserAppHttpService) GetUserInfo(c *gin.Context) {
+	// 获取上下文的Span跨度信息
+	time.Sleep(time.Second * 2)
 	v, _ := c.Get(enum.TraceSpanName)
-	ctx := context.WithValue(context.Background(), "span", v)
+	ctx := context.WithValue(context.Background(), enum.TraceSpanName, v)
 	// RPC调用获取数据
 	response, err := m.userRpcClient.GetUserInfo(ctx, &pbUser.GetUserInfoRequest{
 		UniqueId: "1",

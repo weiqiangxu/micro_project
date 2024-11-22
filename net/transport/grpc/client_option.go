@@ -31,6 +31,7 @@ func WithEndpoint(endpoint string) ClientOption {
 // WithUnaryTraceInterceptor with client endpoint.
 func WithUnaryTraceInterceptor(tracer opentracing.Tracer) ClientOption {
 	return func(c *clientOptions) {
+		// 注入Jaeger追踪器Tracer
 		c.tracer = tracer
 		c.tracerInterceptor = true
 	}

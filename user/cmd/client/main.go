@@ -30,18 +30,23 @@ func main() {
 		},
 	}
 	application.Init()
-	// register http server && grpc server
-	httpServer := http.NewServer(http.WithAddress(config.Conf.HttpConfig.ListenHTTP),
+	// 注册Http服务监听地址
+	// 注入Prometheus指标采集地址
+	// 注入pprof的采集地址
+	httpServer := http.NewServer(
+		http.WithAddress(config.Conf.HttpConfig.ListenHTTP),
 		http.WithPrometheus(config.Conf.HttpConfig.Prometheus),
 		http.WithProfile(config.Conf.HttpConfig.Profile))
 	// 挂载路由到服务中
 	router.Init(httpServer.Server())
+	// 注入Prometheus指标采集的拦截器
 	router.RegisterPrometheus()
-	// register http server && rpc server to gin engine and run
+	// 注册HTTP服务 && RPC服务 到Gin引擎(start/stop的实现)
 	serverList := []transport.Server{httpServer}
 	if len(application.App.Event) > 0 {
 		serverList = append(serverList, application.App.Event...)
 	}
+	// 统一应用管理
 	app := net.New(
 		net.Name(config.Conf.Application.Name),
 		net.Version(config.Conf.Application.Version),

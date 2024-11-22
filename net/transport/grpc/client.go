@@ -3,6 +3,7 @@ package grpc
 import (
 	"context"
 	"fmt"
+	"github.com/weiqiangxu/micro_project/user/global/enum"
 	"google.golang.org/grpc/keepalive"
 	"time"
 
@@ -41,8 +42,8 @@ func Dial(ctx context.Context, opts ...ClientOption) (*grpc.ClientConn, error) {
 			WithGrpcHistogramName(config.Conf.Application.Name, "grpc_seconds"),
 		)
 		list := []grpc.DialOption{
-			grpc.WithUnaryInterceptor(grpcPrometheus.UnaryClientInterceptor),
-			grpc.WithStreamInterceptor(grpcPrometheus.StreamClientInterceptor),
+			grpc.WithChainUnaryInterceptor(grpcPrometheus.UnaryClientInterceptor),
+			grpc.WithChainStreamInterceptor(grpcPrometheus.StreamClientInterceptor),
 		}
 		grpcOpts = append(grpcOpts, list...)
 	}
@@ -53,9 +54,10 @@ func Dial(ctx context.Context, opts ...ClientOption) (*grpc.ClientConn, error) {
 	// RPC调用时候记录链路追踪指标
 	if options.tracerInterceptor {
 		list := []grpc.DialOption{
-			// 注入一元RPC调用拦截器
-			grpc.WithUnaryInterceptor(ClientInterceptor(options.tracer)),
-			grpc.WithUnaryInterceptor(ReleaseInterceptor()),
+			// 将Jaeger 追踪器（Tracer）注入一元RPC调用拦截器
+			grpc.WithChainUnaryInterceptor(ClientInterceptor(options.tracer)),
+			grpc.WithChainUnaryInterceptor(ReleaseInterceptor()),
+			grpc.WithChainUnaryInterceptor(ReleaseInterceptorNew()),
 		}
 		grpcOpts = append(grpcOpts, list...)
 	}
@@ -87,11 +89,15 @@ func ClientInterceptor(tracer opentracing.Tracer) grpc.UnaryClientInterceptor {
 	return func(ctx context.Context, method string, req, reply interface{}, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
 		// 实现一个一元调用拦截器
 		// 从上下文之中获取父跨度标识
-		parentSpan := ctx.Value("span")
+		fmt.Println("ClientInterceptor")
+		parentSpan := ctx.Value(enum.TraceSpanName)
 		if parentSpan != nil {
 			parentSpanContext := parentSpan.(opentracing.SpanContext)
-			// 开启RPC调用跨度
-			child := tracer.StartSpan(method, opentracing.ChildOf(parentSpanContext))
+			// 在当前的http请求跨度下面创建一个子span也就是子跨度
+			// 使用Jaeger 追踪器（Tracer）创建子跨度span
+			child := tracer.StartSpan(
+				fmt.Sprintf("grpc.request:%s", method),
+				opentracing.ChildOf(parentSpanContext))
 			// 调用完成以后标识此Span结束
 			defer child.Finish()
 		}
@@ -106,6 +112,19 @@ func ReleaseInterceptor() grpc.UnaryClientInterceptor {
 		fmt.Println("GRPC请求开始...")
 		defer func() {
 			fmt.Println("GRPC的请求完成通知gRPC连接池释放连接...")
+		}()
+		// invoker真正的发起RPC调用,并且调用完成之后进入defer
+		return invoker(ctx, method, req, reply, cc, opts...)
+	}
+}
+
+// ReleaseInterceptorNew RPC调用完成释放连接
+func ReleaseInterceptorNew() grpc.UnaryClientInterceptor {
+	return func(ctx context.Context, method string, req, reply interface{}, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
+		// 实现一个一元调用拦截器
+		fmt.Println("GRPC请求开始New...")
+		defer func() {
+			fmt.Println("GRPC的请求完成通知gRPC连接池释放连接New...")
 		}()
 		// invoker真正的发起RPC调用,并且调用完成之后进入defer
 		return invoker(ctx, method, req, reply, cc, opts...)

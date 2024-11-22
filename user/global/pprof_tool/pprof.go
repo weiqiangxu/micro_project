@@ -19,14 +19,16 @@ func getPrefix(prefixOptions ...string) string {
 	return prefix
 }
 
-// Register the standard Handler from the net/http/pprof package with
-// the provided gin.Engine. prefixOptions is optional. If not prefixOptions,
-// the default path prefix is used, otherwise first prefixOptions will be path prefix.
+// Register 将来自 net/http/pprof 包的标准处理器与所提供的 gin.Engine 结合起来
+// prefixOptions 是可选的
+// 如果没有 prefixOptions，则使用默认的路径前缀
+// 否则，prefixOptions 中的第一个元素将用作路径前缀。
+// 使用 net/http/pprof 类库采集性能指标
 func Register(r *gin.Engine, prefixOptions ...string) {
 	RouteRegister(&(r.RouterGroup), prefixOptions...)
 }
 
-// RouteRegister the standard Handler Func
+// RouteRegister 注入性能分析（Performance Profiling）的数据查找路由
 func RouteRegister(route *gin.RouterGroup, prefixOptions ...string) {
 	prefix := getPrefix(prefixOptions...)
 	prefixRouter := route.Group(prefix)

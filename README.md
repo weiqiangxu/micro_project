@@ -31,6 +31,23 @@ $ curl http://127.0.0.1:8989/user/info
 ```
 
 
+### 三、启动jaeger服务
+
+```bash
+# https://www.jaegertracing.io/docs/1.63/getting-started/
+docker run -d --name jaeger \
+  -e COLLECTOR_ZIPKIN_HOST_PORT=:9411 \
+  -p 16686:16686 \
+  -p 4317:4317 \
+  -p 4318:4318 \
+  -p 14250:14250 \
+  -p 14268:14268 \
+  -p 14269:14269 \
+  -p 9411:9411 \
+  jaegertracing/all-in-one:1.63.0
+```
+
+
 ### 附录
 
 ##### 1.rpc调试工具
