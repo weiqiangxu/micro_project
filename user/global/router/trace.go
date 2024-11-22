@@ -15,7 +15,7 @@ func RequestTracingInterceptor() gin.HandlerFunc {
 		// 获取当前 Span（跨度）对应的 SpanContext（跨度上下文）
 		// SpanContext 则包含了与这个 Span 相关的关键信息，比如该 Span 的唯一标识符、所属的追踪链路、相关的标签等
 		spanContext := span.Context()
-		// 并且设置到context的集合之中
+		// 并且设置到context的固定Key之中(用于子模块创建child-Span)
 		ctx.Set(enum.TraceSpanName, spanContext)
 		// ctx.Next() 通常表示让请求处理流程继续往下进行
 		ctx.Next()
